@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Snake</string>
+    <string name="Snake_Game">Jogo da Cobra</string>
+    <string name="New_Game">Novo Jogo</string>
+    <string name="Continue">Continue</string>
+    <string name="Backac">Voltar</string>
+</resources>

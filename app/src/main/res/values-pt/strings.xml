@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Snake</string>
+    <string name="New_Game">Novo Jogo</string>
+    <string name="Snake_Game">Jogo da Cobrenha</string>
+    <string name="Continue">Continue</string>
+    <string name="Backac">Voltar</string>
+</resources>
