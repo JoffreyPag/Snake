@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/snakewal"
     tools:context="com.example.joffr.snake.Configuracoes">
 
     <TextView
@@ -25,6 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Backac"
+        android:onClick="voltar"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="33dp"
         android:layout_marginRight="8dp"
