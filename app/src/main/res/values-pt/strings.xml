@@ -13,4 +13,9 @@
     <string name="Grid_Range">Tamanho da Grande</string>
     <string name="Big">Grande</string>
     <string name="Small">Pequeno</string>
+    <string name="down">Baixo</string>
+    <string name="left">Esquerda</string>
+    <string name="right">Direita</string>
+    <string name="up">Cima</string>
+    <string name="score">Pontuação:</string>
 </resources>
