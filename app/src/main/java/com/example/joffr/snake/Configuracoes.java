@@ -5,11 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 public class Configuracoes extends AppCompatActivity {
     int dif;
     int tamgrid;
     RadioButton rb1, rb2, rb3, rbp, rbg;
+    RadioGroup rg1,rg2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +25,8 @@ public class Configuracoes extends AppCompatActivity {
         rb3 = (RadioButton)findViewById(R.id.dificil);
         rbp = (RadioButton)findViewById(R.id.peq);
         rbg = (RadioButton)findViewById(R.id.gran);
+        rg1 = (RadioGroup)findViewById(R.id.radioGroup);
+        rg2 = (RadioGroup)findViewById(R.id.radioGroup2);
 
         dif = b.getInt("dificuldade");
         tamgrid = b.getInt("tamanhograde");
@@ -41,45 +45,21 @@ public class Configuracoes extends AppCompatActivity {
         }
     }
 
-    public void onRadioButtonClicked(View view) {
-        // Is the button now checked?
-        boolean checked = ((RadioButton) view).isChecked();
+    public void onRadioButton1Clicked(View view) {
+        if(R.id.fac == rg1.getCheckedRadioButtonId()){
+            dif = 1;
+        }else if(R.id.medio == rg1.getCheckedRadioButtonId()){
+            dif = 2;
+        }else if(R.id.dificil == rg1.getCheckedRadioButtonId()){
+            dif = 3;
+        }
+    }
 
-        // Check which radio button was clicked
-        switch(view.getId()) {
-            case R.id.fac:
-                if (checked) {
-                    dif = 1;
-                    rb2.setChecked(false);
-                    rb3.setChecked(false);
-                }
-                    break;
-            case R.id.medio:
-                if (checked) {
-                    dif = 2;
-                    rb1.setChecked(false);
-                    rb3.setChecked(false);
-                }
-                break;
-            case R.id.dificil:
-                if(checked) {
-                    dif = 3;
-                    rb1.setChecked(false);
-                    rb2.setChecked(false);
-                }
-                break;
-            case R.id.peq:
-                if(checked){
-                    tamgrid = 1;
-                    rbg.setChecked(false);
-                }
-                break;
-            case R.id.gran:
-                if(checked){
-                    tamgrid = 2;
-                    rbp.setChecked(false);
-                }
-            break;
+    public void onRadioButton2Clicked(View v){
+        if(R.id.peq == rg2.getCheckedRadioButtonId()){
+            tamgrid = 1;
+        } else if(R.id.gran == rg2.getCheckedRadioButtonId()){
+            tamgrid = 2;
         }
     }
 
@@ -93,8 +73,4 @@ public class Configuracoes extends AppCompatActivity {
         finish();
     }
 
-    public void voltar(View v){
-        setResult(RESULT_CANCELED);
-        finish();
-    }
 }
