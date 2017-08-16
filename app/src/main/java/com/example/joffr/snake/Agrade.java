@@ -23,8 +23,8 @@ public class Agrade extends AppCompatActivity {
         setContentView(R.layout.activity_agrade);
 
         gl = (GridLayout)findViewById(R.id.gridLayout);
-        pausa = (ImageButton)findViewById(R.id.botPausa);
-        continuar = (ImageButton)findViewById(R.id.botaoContinua);
+        //pausa = (ImageButton)findViewById(R.id.botPausa);
+        //continuar = (ImageButton)findViewById(R.id.botaoContinua);
 
         Bundle b = getIntent().getExtras();
         tamgrid = b.getInt("tamanhograde");
@@ -41,8 +41,6 @@ public class Agrade extends AppCompatActivity {
                 GridLayout.LayoutParams lp = new GridLayout.LayoutParams(linha, coluna);
 
                 ImageView iv = new ImageButton(this);
-                
-
 
                 gl.addView(iv, lp);
             }
