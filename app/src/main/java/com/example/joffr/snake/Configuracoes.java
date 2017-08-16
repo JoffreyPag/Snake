@@ -16,12 +16,31 @@ public class Configuracoes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configuracoes);
 
+        Bundle b = getIntent().getExtras();
+
         rb1 = (RadioButton)findViewById(R.id.fac);
         rb2 = (RadioButton)findViewById(R.id.medio);
         rb3 = (RadioButton)findViewById(R.id.dificil);
         rbp = (RadioButton)findViewById(R.id.peq);
         rbg = (RadioButton)findViewById(R.id.gran);
 
+        if(b.getInt("dificuldade") == 1){
+            dif = 1;
+            rb1.setChecked(true);
+        } else if(b.getInt("dificuldade") == 2){
+            dif= 2;
+            rb2.setChecked(true);
+        }else if(b.getInt("dificuldade") == 3){
+            dif = 3;
+            rb3.setChecked(true);
+        }
+        if(b.getInt("tamanhograde") == 1){
+            tamgrid = 1;
+            rbp.setChecked(true);
+        }else if(b.getInt("tamanhograde") == 2){
+            tamgrid = 2;
+            rbg.setChecked(true);
+        }
     }
 
     public void onRadioButtonClicked(View view) {
