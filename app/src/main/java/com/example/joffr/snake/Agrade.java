@@ -33,6 +33,7 @@ public class Agrade extends AppCompatActivity {
         gl.setColumnCount(25*tamgrid);
         gl.setRowCount(25*tamgrid);
 
+
         for (int i=0; i<gl.getRowCount(); i++){
             for(int j=0; j<gl.getColumnCount(); j++){
                 GridLayout.Spec linha = GridLayout.spec(i);
@@ -40,6 +41,7 @@ public class Agrade extends AppCompatActivity {
                 GridLayout.LayoutParams lp = new GridLayout.LayoutParams(linha, coluna);
 
                 ImageView iv = new ImageButton(this);
+                
 
 
                 gl.addView(iv, lp);
