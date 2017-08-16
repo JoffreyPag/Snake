@@ -24,21 +24,19 @@ public class Configuracoes extends AppCompatActivity {
         rbp = (RadioButton)findViewById(R.id.peq);
         rbg = (RadioButton)findViewById(R.id.gran);
 
-        if(b.getInt("dificuldade") == 1){
-            dif = 1;
+        dif = b.getInt("dificuldade");
+        tamgrid = b.getInt("tamanhograde");
+
+        if(dif == 1){
             rb1.setChecked(true);
-        } else if(b.getInt("dificuldade") == 2){
-            dif= 2;
+        } else if(dif == 2){
             rb2.setChecked(true);
-        }else if(b.getInt("dificuldade") == 3){
-            dif = 3;
+        }else if(dif == 3){
             rb3.setChecked(true);
         }
-        if(b.getInt("tamanhograde") == 1){
-            tamgrid = 1;
+        if(tamgrid == 1){
             rbp.setChecked(true);
-        }else if(b.getInt("tamanhograde") == 2){
-            tamgrid = 2;
+        }else if(tamgrid == 2){
             rbg.setChecked(true);
         }
     }
