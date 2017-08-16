@@ -14,8 +14,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAMGRANDE = "TAMANHODAGRADE";
     private static final int CONFS = 11;
 
-    int pontuacao;
-    int dif, tamgrade;
+    int pontuacao, dif, tamgrade;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
