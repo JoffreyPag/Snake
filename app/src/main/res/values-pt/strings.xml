@@ -5,4 +5,12 @@
     <string name="Snake_Game">Jogo da Cobrenha</string>
     <string name="Continue">Continue</string>
     <string name="Backac">Voltar</string>
+    <string name="dificul">Dificuldade</string>
+    <string name="Easy">Easy</string>
+    <string name="Hard">Dificil</string>
+    <string name="Normal">Normal</string>
+    <string name="Att">Atualizar</string>
+    <string name="Grid_Range">Tamanho da Grande</string>
+    <string name="Big">Grande</string>
+    <string name="Small">Pequeno</string>
 </resources>

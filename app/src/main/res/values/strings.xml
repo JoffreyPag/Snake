@@ -4,4 +4,12 @@
     <string name="New_Game">Novo Jogo</string>
     <string name="Continue">Continue</string>
     <string name="Backac">Voltar</string>
+    <string name="dificul">Dificulty</string>
+    <string name="Easy">Easy</string>
+    <string name="Normal">Normal</string>
+    <string name="Hard">Hard</string>
+    <string name="Att">Atualizar</string>
+    <string name="Grid_Range">Tamanho da Grade</string>
+    <string name="Big">Grande</string>
+    <string name="Small">Pequeno</string>
 </resources>

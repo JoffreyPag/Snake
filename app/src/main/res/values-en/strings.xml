@@ -5,4 +5,12 @@
     <string name="Snake_Game">Snake Game</string>
     <string name="Continue">Continue</string>
     <string name="Backac">Back</string>
+    <string name="dificul">Dificulty</string>
+    <string name="Easy">Easy</string>
+    <string name="Hard">Hard</string>
+    <string name="Normal">Normal</string>
+    <string name="Att">Update</string>
+    <string name="Grid_Range">Grid range</string>
+    <string name="Big">Big</string>
+    <string name="Small">Small</string>
 </resources>
