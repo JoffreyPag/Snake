@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void NovoJogo(View v){
-        Intent i = new Intent(this, Configuracoes.class);
+        Intent i = new Intent(this, Agrade.class);
         Bundle b = new Bundle();
         b.putInt("pontMax", pontuacao);
         b.putInt("dificuldade", dif);
