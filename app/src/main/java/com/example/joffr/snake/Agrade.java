@@ -22,7 +22,7 @@ public class Agrade extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agrade);
 
-        gl = (GridLayout)findViewById(R.id.gridLayout);
+        gl = (GridLayout) findViewById(R.id.gridLayout);
         //pausa = (ImageButton)findViewById(R.id.botPausa);
         //continuar = (ImageButton)findViewById(R.id.botaoContinua);
 
@@ -30,29 +30,23 @@ public class Agrade extends AppCompatActivity {
         tamgrid = b.getInt("tamanhograde");
         dificuldade = b.getInt("dificuldade");
 
-        gl.setColumnCount(25*tamgrid);
-        gl.setRowCount(25*tamgrid);
+        gl.setColumnCount(25 * tamgrid);
+        gl.setRowCount(25 * tamgrid);
+
+        for (int i = 0; i < gl.getRowCount(); i++) {
+            for (int j = 0; j < gl.getColumnCount(); j++) {
 
 
-        for (int i=0; i<gl.getRowCount(); i++){
-            for(int j=0; j<gl.getColumnCount(); j++){
-                GridLayout.Spec linha = GridLayout.spec(i);
-                GridLayout.Spec coluna = GridLayout.spec(j);
-                GridLayout.LayoutParams lp = new GridLayout.LayoutParams(linha, coluna);
-
-                ImageView iv = new ImageButton(this);
-
-                gl.addView(iv, lp);
             }
         }
 
     }
 
-    public void ClickPause(View v){
-        if(pausa.getVisibility() == View.VISIBLE) {
+    public void ClickPause(View v) {
+        if (pausa.getVisibility() == View.VISIBLE) {
             pausa.setVisibility(View.INVISIBLE);
             continuar.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             pausa.setVisibility(View.VISIBLE);
             continuar.setVisibility(View.INVISIBLE);
         }

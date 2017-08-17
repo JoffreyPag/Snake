@@ -1,27 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context="com.example.joffr.snake.Agrade"
-    tools:layout_editor_absoluteY="81dp"
-    tools:layout_editor_absoluteX="0dp">
+    android:orientation="vertical"
+    tools:context="com.example.joffr.snake.Agrade">
 
     <TextView
         android:id="@+id/score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/score"
         android:layout_weight="0"
-        />
+        android:text="@string/score"
+        android:textColor="#ffff" />
 
     <GridLayout
         android:id="@+id/gridLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@color/colorAccent"
         android:layout_weight="1">
 
@@ -30,9 +27,10 @@
 
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_weight="1">
 
         <!--<Button
         android:id="@+id/cima"
@@ -87,12 +85,6 @@
              />-->
 
     </LinearLayout>
-
-
-
-
-
-
 
 
 </LinearLayout>
