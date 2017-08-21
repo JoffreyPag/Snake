@@ -3,4 +3,4 @@
     android1:id="@+id/ImageView"
     android1:layout_width="10dp"
     android1:layout_height="10dp"
-    android1:background="@color/colorPrimaryDark"/>
+    android1:src="#ffffff"/>
