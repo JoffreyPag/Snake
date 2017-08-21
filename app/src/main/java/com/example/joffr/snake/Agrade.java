@@ -3,6 +3,7 @@ package com.example.joffr.snake;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridLayout;
@@ -33,9 +34,13 @@ public class Agrade extends AppCompatActivity {
         gl.setColumnCount(25 * tamgrid);
         gl.setRowCount(25 * tamgrid);
 
+
+        LayoutInflater inflater = LayoutInflater.from(this);
         for (int i = 0; i < gl.getRowCount(); i++) {
             for (int j = 0; j < gl.getColumnCount(); j++) {
+                ImageView im = (ImageView) inflater.inflate(R.layout.inflate_imageview, gl, false);
 
+                gl.addView(im);
 
             }
         }
