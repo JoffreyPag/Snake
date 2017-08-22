@@ -96,7 +96,6 @@ public class Agrade extends AppCompatActivity {
                             //se a cabeça nao chegou no limite da grade
                             if (cobra.get(0)[1] < tamgrid - 1) {
 
-                                //tabuleiro[cobra.get(0)[0]][cobra.get(0)[1] - 1].setImageResource(R.color.White);
                                 tabuleiro[cobra.get(0)[0]][cobra.get(0)[1]].setImageResource(R.color.White);
                                 cobra.get(0)[1] += 1;
                                 tabuleiro[cobra.get(0)[0]][cobra.get(0)[1]].setImageResource(R.color.Black);
@@ -105,6 +104,7 @@ public class Agrade extends AppCompatActivity {
                                 for (int i = 1; i < cobra.size(); i++) {
                                     tabuleiro[cobra.get(i)[0]][cobra.get(i)[1]].setImageResource(R.color.White);
                                     //se seu superior tiver na posição 0, sua posição tem que ser no outro lado do mapa
+                                    //isso so ocorre se a cobra estiver muito grande...
                                     if (cobra.get(i - 1)[1] - 1 < 0) {
                                         cobra.get(i)[1] = tamgrid - 1;
                                     } else {
@@ -134,14 +134,16 @@ public class Agrade extends AppCompatActivity {
                                 }
 
                             }
-
+                            //se a cabela estiver no mesmo lugar que a fruta
                             if (cobra.get(0)[0] == fruta[0] && cobra.get(0)[1] == fruta[1]) {
                                 int ultimapos = cobra.size();
+                                //o novo corpo recebe as mesmas coordenadas da ultima parte do corpo
                                 corpo[0] = cobra.get(ultimapos - 1)[0];
                                 corpo[1] = cobra.get(ultimapos - 1)[1];
                                 cobra.add(ultimapos, corpo);
                                 count += 50;
                                 pontu.setText("Potuação: " + count);
+                                //reposicionei a fruta pra tirar um buguinho
                                 fruta[0] = 5;
                                 fruta[1] = 5;
                                 tabuleiro[fruta[0]][fruta[1]].setImageResource(R.color.Red);
