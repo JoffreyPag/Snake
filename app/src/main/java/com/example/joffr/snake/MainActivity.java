@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
         pontuacao = save.getInt(PONTUACAO, 0);
         dif = save.getInt(DIFICULDADE, 2);
-        tamgrade = save.getInt(TAMGRANDE, 1);
+        tamgrade = save.getInt(TAMGRANDE, 25);
     }
 
     public void NovoJogo(View v){

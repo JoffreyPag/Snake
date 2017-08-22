@@ -57,9 +57,9 @@ public class Configuracoes extends AppCompatActivity {
 
     public void onRadioButton2Clicked(View v){
         if(R.id.peq == rg2.getCheckedRadioButtonId()){
-            tamgrid = 1;
+            tamgrid = 25;
         } else if(R.id.gran == rg2.getCheckedRadioButtonId()){
-            tamgrid = 2;
+            tamgrid = 50;
         }
     }
 
