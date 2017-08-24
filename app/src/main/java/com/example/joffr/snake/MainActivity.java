@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 pontumin = data.getIntExtra("pontumin", 0);
                 continuar = true;
                 conti.setVisibility(View.VISIBLE);
-                Toast.makeText(this, ""+pontumin, Toast.LENGTH_SHORT);
+                Toast.makeText(this, "Jogo salvo", Toast.LENGTH_SHORT).show();
             }
         }
     }

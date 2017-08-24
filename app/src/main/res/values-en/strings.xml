@@ -21,4 +21,5 @@
     <string name="gameOver">Game Over</string>
     <string name="Quit">Quit</string>
     <string name="Save">Save e Quit</string>
+    <string name="Aviso">Advice: The changes on configurations will cause the loss of the last save</string>
 </resources>

@@ -21,4 +21,5 @@
     <string name="gameOver">Fim de Jogo</string>
     <string name="Quit">Sair</string>
     <string name="Save">Salvar e Sair</string>
+    <string name="Aviso">Aviso: a alteração das configurações acarretara na perda do ultimo jogo salvo</string>
 </resources>
