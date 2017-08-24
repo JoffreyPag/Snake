@@ -16,11 +16,12 @@ public class Resultado extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resultado);
         total = getIntent().getStringExtra("pontuacao");
-        pontotal = (TextView)findViewById(R.id.pontuacaodojogo);
+        pontotal = (TextView) findViewById(R.id.pontuacaodojogo);
         pontotal.setText(total);
     }
 
-    public void Sair(View v){
+    public void Sair(View v) {
         finish();
     }
+
 }

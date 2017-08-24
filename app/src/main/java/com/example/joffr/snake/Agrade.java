@@ -41,10 +41,10 @@ public class Agrade extends AppCompatActivity {
 
         pontu = (TextView) findViewById((R.id.score));
         gl = (GridLayout) findViewById(R.id.gridLayout);
-        cima = (Button)findViewById(R.id.cima);
-        baixo = (Button)findViewById(R.id.baixo);
-        esq = (Button)findViewById(R.id.esquerda);
-        dir = (Button)findViewById(R.id.direita);
+        cima = (Button) findViewById(R.id.cima);
+        baixo = (Button) findViewById(R.id.baixo);
+        esq = (Button) findViewById(R.id.esquerda);
+        dir = (Button) findViewById(R.id.direita);
         pausa = (ImageButton) findViewById(R.id.botPausa);
         continuar = (ImageButton) findViewById(R.id.botaoContinua);
 
@@ -111,8 +111,8 @@ public class Agrade extends AppCompatActivity {
 
                             //teste de fruta
                             if (cobra.get(0)[0] == fruta[0] && cobra.get(0)[1] == fruta[1]) {
-                                count+=1;
-                                pontu.setText("Pontuação: "+count);
+                                count += 1;
+                                pontu.setText("Pontuação: " + count);
                                 int ultimapos = cobra.size(); //pega a ultima posicao do array cobra
                                 x = cobra.get(ultimapos - 1)[0];
                                 y = cobra.get(ultimapos - 1)[1];
@@ -181,7 +181,7 @@ public class Agrade extends AppCompatActivity {
                                     //pontu.setText("VOCÊ MORREU!");
                                     running = false;
                                     Intent ni = new Intent(Agrade.this, Resultado.class);
-                                    ni.putExtra("pontuacao", ""+count);
+                                    ni.putExtra("pontuacao", "" + count);
                                     startActivity(ni);
                                     finish();
                                 }

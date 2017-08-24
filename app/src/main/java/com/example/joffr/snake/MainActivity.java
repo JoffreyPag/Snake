@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         tamgrade = save.getInt(TAMGRANDE, 15);
     }
 
-    public void NovoJogo(View v){
+    public void NovoJogo(View v) {
         Intent i = new Intent(this, Agrade.class);
         Bundle b = new Bundle();
         b.putInt("pontMax", pontuacao);
@@ -38,13 +38,14 @@ public class MainActivity extends AppCompatActivity {
         startActivity(i);
     }
 
-    public void Continuar(View v){
+    public void Continuar(View v) {
         /*Intent i = new Intent(this, Configuracoes.class);
         startActivity(i);*/
         Toast.makeText(this, "aaa", Toast.LENGTH_SHORT).show();
 
     }
-    public void Config(View v){
+
+    public void Config(View v) {
         Intent i = new Intent(this, Configuracoes.class);
         Bundle b = new Bundle();
         b.putInt("dificuldade", dif);
@@ -55,8 +56,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode ==  CONFS){
-            if(resultCode == RESULT_OK){
+        if (requestCode == CONFS) {
+            if (resultCode == RESULT_OK) {
                 dif = data.getIntExtra("dificuldade", 2);
                 tamgrade = data.getIntExtra("tamanhograde", 1);
             }
