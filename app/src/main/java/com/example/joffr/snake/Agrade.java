@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Agrade extends AppCompatActivity {
 
@@ -25,7 +27,8 @@ public class Agrade extends AppCompatActivity {
     ImageView[][] tabuleiro;
     int[] corpo = new int[2];
     int[] fruta = new int[2];
-    int tamgrid, dificuldade, count = 0;
+    int[] sentido = new int[2];
+    int tamgrid, dificuldade, count = 0, x, y;
     ArrayList<int[]> cobra = new ArrayList<int[]>();
 
     @Override
@@ -70,6 +73,10 @@ public class Agrade extends AppCompatActivity {
         fruta[0] = 0;
         fruta[1] = 5;
 
+        //sentido incial (0,1) pra direita
+        sentido[0] = 0;
+        sentido[1] = 1;
+
         tabuleiro[fruta[0]][fruta[1]].setImageResource(R.color.Red);
 
         //System.out.println(cobra.size());
@@ -93,60 +100,63 @@ public class Agrade extends AppCompatActivity {
                         public void run() {
 
                             //a cobra anda aqui
-                            //se a cabeça nao chegou no limite da grade
-                            if (cobra.get(0)[1] < tamgrid - 1) {
 
-                                tabuleiro[cobra.get(0)[0]][cobra.get(0)[1]].setImageResource(R.color.White);
-                                cobra.get(0)[1] += 1;
-                                tabuleiro[cobra.get(0)[0]][cobra.get(0)[1]].setImageResource(R.color.Black);
-
-                                //fazer o resto d corpo seguir seu superior
-                                for (int i = 1; i < cobra.size(); i++) {
-                                    tabuleiro[cobra.get(i)[0]][cobra.get(i)[1]].setImageResource(R.color.White);
-                                    //se seu superior tiver na posição 0, sua posição tem que ser no outro lado do mapa
-                                    //isso so ocorre se a cobra estiver muito grande...
-                                    if (cobra.get(i - 1)[1] - 1 < 0) {
-                                        cobra.get(i)[1] = tamgrid - 1;
-                                    } else {
-                                        //se sey superior nao tiver na pos 0 ele realoca pra uma posição atras
-                                        cobra.get(i)[1] = cobra.get(i - 1)[1] - 1;
-                                    }
-                                    tabuleiro[cobra.get(i)[0]][cobra.get(i)[1]].setImageResource(R.color.Black);
-
-                                }
-                            }
-                            //se a cobra chegou no limite da grade
-                            else {
-                                tabuleiro[cobra.get(0)[0]][cobra.get(0)[1]].setImageResource(R.color.White);
-                                cobra.get(0)[1] = 0;
-                                tabuleiro[cobra.get(0)[0]][cobra.get(0)[1]].setImageResource(R.color.Black);
-                                //fazer o resto d corpo seguir seu superior
-                                for (int i = 1; i < cobra.size(); i++) {
-                                    tabuleiro[cobra.get(i)[0]][cobra.get(i)[1]].setImageResource(R.color.White);
-                                    //se seu superior tiver na posição 0, sua posição tem que ser no outro lado do mapa
-                                    if (cobra.get(i - 1)[1] - 1 < 0) {
-                                        cobra.get(i)[1] = tamgrid - 1;
-                                    } else {
-                                        //se sey superior nao tiver na pos 0 ele realoca pra uma posição atras
-                                        cobra.get(i)[1] = cobra.get(i - 1)[1] - 1;
-                                    }
-                                    tabuleiro[cobra.get(i)[0]][cobra.get(i)[1]].setImageResource(R.color.Black);
-                                }
-
-                            }
-                            //se a cabela estiver no mesmo lugar que a fruta
+                            //teste de fruta
                             if (cobra.get(0)[0] == fruta[0] && cobra.get(0)[1] == fruta[1]) {
-                                int ultimapos = cobra.size();
-                                //o novo corpo recebe as mesmas coordenadas da ultima parte do corpo
-                                corpo[0] = cobra.get(ultimapos - 1)[0];
-                                corpo[1] = cobra.get(ultimapos - 1)[1];
-                                cobra.add(ultimapos, corpo);
-                                count += 50;
-                                pontu.setText("Potuação: " + count);
-                                //reposicionei a fruta pra tirar um buguinho
-                                fruta[0] = 5;
-                                fruta[1] = 5;
+                                int ultimapos = cobra.size(); //pega a ultima posicao do array cobra
+                                x = cobra.get(ultimapos - 1)[0];
+                                y = cobra.get(ultimapos - 1)[1];
+
+                                corpo[0] = x;//pega os parametros de um ponto qualquer
+                                corpo[1] = y;
+                                cobra.add(ultimapos, corpo); //cria um novo tile da cobra
+                                //reposiciona a fruta --CODIGO TEMPORARIO--
+                                //fruta[0] = 5;
+                                //fruta[1] = 6;
                                 tabuleiro[fruta[0]][fruta[1]].setImageResource(R.color.Red);
+                            }
+
+                            //limpa a tela
+                            for (int[] posCobra : cobra) {
+                                tabuleiro[posCobra[0]][posCobra[1]].setImageResource(R.color.White);
+                            }
+
+                            //muda a posição da cobra OBS: AINDA NAO PINTA NA TELA
+                            for (int i = cobra.size() - 1; i >= 0; i--) {
+                                //se nao for a cabeça
+                                Log.i("Movimento", "i = "+i);
+                                if (i != 0) {
+                                    Log.i("Move Tile", "Tile: "+i+" pos antiga: "+cobra.get(i)[1]);
+                                    cobra.get(i)[0] = cobra.get(i - 1)[0];
+                                    cobra.get(i)[1] = cobra.get(i - 1)[1];
+                                    Log.i("Move Tile", "Tile: "+i+" pos nova: "+cobra.get(i)[1]);
+                                } else {
+                                    Log.i("Move cabeça", "Tile: "+i+"pos antiga: "+cobra.get(i)[1]);
+                                    cobra.get(i)[0] += sentido[0];
+                                    cobra.get(i)[1] += sentido[1];
+                                    Log.i("Move cabeça", "Tile: "+i+"pos nova: "+cobra.get(i)[1]);
+                                }
+                            }
+                            //teste de borda
+                            //tratamento de borda
+                            //se a cabeça estiver no limite do fundo, redireciona para o extremo do topo
+                            if (cobra.get(0)[0] >= tamgrid && cobra.get(0)[1] < tamgrid) {
+                                cobra.get(0)[0] = 0;
+                            }
+                            //se a cabeça estiver no limite da direita, redireciona para o extremo esquerdo
+                            else if (cobra.get(0)[0] < tamgrid && cobra.get(0)[1] >= tamgrid) {
+                                cobra.get(0)[1] = 0;
+                            }
+                            //se os dois estiverem nos limites, zera tuto
+                            else if (cobra.get(0)[0] >= tamgrid && cobra.get(0)[1] >= tamgrid) {
+                                cobra.get(0)[0] = 0;
+                                cobra.get(0)[1] = 0;
+                            }
+                            //se nao atender nenhum dos casos, a cobra anda normal
+
+                            //imprime na tela
+                            for (int[] snake : cobra) {
+                                tabuleiro[snake[0]][snake[1]].setImageResource(R.color.Black);
                             }
 
                         }
