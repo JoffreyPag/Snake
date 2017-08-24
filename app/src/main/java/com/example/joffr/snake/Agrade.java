@@ -137,6 +137,7 @@ public class Agrade extends AppCompatActivity {
                                     Log.i("Move cabeça", "Tile: " + i + " pos nova: " + cobra.get(i)[1]);
                                 }
                             }
+
                             //teste de borda
                             //tratamento de borda
                             //se a cabeça estiver no limite do fundo, redireciona para o extremo do topo
