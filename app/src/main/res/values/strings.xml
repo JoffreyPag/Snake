@@ -18,4 +18,5 @@
     <string name="left">Left</string>
     <string name="down">Down</string>
     <string name="score">Pontuação:</string>
+    <string name="gameOver">Game Over</string>
 </resources>

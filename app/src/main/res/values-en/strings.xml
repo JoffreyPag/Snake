@@ -18,4 +18,5 @@
     <string name="right">Right</string>
     <string name="up">Up</string>
     <string name="score">"Score: "</string>
+    <string name="gameOver">Game Over</string>
 </resources>

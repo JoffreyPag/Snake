@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@color/GreenSnake"
     android:orientation="vertical"
     tools:context="com.example.joffr.snake.Agrade">
 
@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="0"
         android:text="@string/score"
-        android:textColor="#ffff" />
+        android:textColor="@color/GreenSnakeDark" />
 
     <GridLayout
         android:id="@+id/gridLayout"
@@ -23,7 +23,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_weight="1"
-        android:background="@color/colorPrimary">
+        android:background="@color/GreenSnake">
 
 
     </GridLayout>
@@ -41,6 +41,8 @@
         android:layout_weight="2">
 
         <Button
+            android:background="@color/GreenSnakeDark"
+            android:textColor="@color/GreenSnake"
             android:onClick="Direcao"
             android:id="@+id/cima"
             android:layout_width="wrap_content"
@@ -55,6 +57,8 @@
             app:layout_constraintHorizontal_bias="0.105" />
 
         <Button
+            android:background="@color/GreenSnakeDark"
+            android:textColor="@color/GreenSnake"
             android:onClick="Direcao"
             android:id="@+id/direita"
             android:layout_width="wrap_content"
@@ -73,6 +77,8 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <Button
+            android:background="@color/GreenSnakeDark"
+            android:textColor="@color/GreenSnake"
             android:onClick="Direcao"
             android:id="@+id/esquerda"
             android:layout_width="wrap_content"
@@ -88,6 +94,8 @@
             app:layout_constraintHorizontal_bias="0.449" />
 
         <Button
+            android:background="@color/GreenSnakeDark"
+            android:textColor="@color/GreenSnake"
             android:onClick="Direcao"
             android:id="@+id/baixo"
             android:layout_width="wrap_content"

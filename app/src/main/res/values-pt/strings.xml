@@ -18,4 +18,5 @@
     <string name="right">Direita</string>
     <string name="up">Cima</string>
     <string name="score">Pontuação:</string>
+    <string name="gameOver">Fim de Jogo</string>
 </resources>
