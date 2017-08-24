@@ -1,5 +1,6 @@
 package com.example.joffr.snake;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -179,6 +180,10 @@ public class Agrade extends AppCompatActivity {
                                 if (cobra.get(0)[0] == cobra.get(i)[0] && cobra.get(0)[1] == cobra.get(i)[1]) {
                                     //pontu.setText("VOCÊ MORREU!");
                                     running = false;
+                                    Intent ni = new Intent(Agrade.this, Resultado.class);
+                                    ni.putExtra("pontuacao", ""+count);
+                                    startActivity(ni);
+                                    finish();
                                 }
                             }
 

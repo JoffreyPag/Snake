@@ -19,4 +19,5 @@
     <string name="up">Cima</string>
     <string name="score">Pontuação:</string>
     <string name="gameOver">Fim de Jogo</string>
+    <string name="Quit">Sair</string>
 </resources>
