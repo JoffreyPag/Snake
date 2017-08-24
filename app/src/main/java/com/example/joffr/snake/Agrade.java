@@ -124,17 +124,17 @@ public class Agrade extends AppCompatActivity {
                             //muda a posição da cobra OBS: AINDA NAO PINTA NA TELA
                             for (int i = cobra.size() - 1; i >= 0; i--) {
                                 //se nao for a cabeça
-                                Log.i("Movimento", "i = "+i);
+                                Log.i("Movimento", "i = " + i);
                                 if (i != 0) {
-                                    Log.i("Move Tile", "Tile: "+i+" pos antiga: "+cobra.get(i)[1]);
+                                    Log.i("Move Tile", "Tile: " + i + " pos antiga: " + cobra.get(i)[1]);
                                     cobra.get(i)[0] = cobra.get(i - 1)[0];
                                     cobra.get(i)[1] = cobra.get(i - 1)[1];
-                                    Log.i("Move Tile", "Tile: "+i+" pos nova: "+cobra.get(i)[1]);
+                                    Log.i("Move Tile", "Tile: " + i + " pos nova: " + cobra.get(i)[1]);
                                 } else {
-                                    Log.i("Move cabeça", "Tile: "+i+" pos antiga: "+cobra.get(i)[1]);
+                                    Log.i("Move cabeça", "Tile: " + i + " pos antiga: " + cobra.get(i)[1]);
                                     cobra.get(i)[0] += sentido[0];
                                     cobra.get(i)[1] += sentido[1];
-                                    Log.i("Move cabeça", "Tile: "+i+" pos nova: "+cobra.get(i)[1]);
+                                    Log.i("Move cabeça", "Tile: " + i + " pos nova: " + cobra.get(i)[1]);
                                 }
                             }
                             //teste de borda
