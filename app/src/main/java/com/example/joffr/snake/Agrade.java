@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -23,13 +24,13 @@ public class Agrade extends AppCompatActivity {
     private Boolean running = true;
     TextView pontu;
     GridLayout gl;
+    Button cima, baixo, esq, dir;
     ImageButton pausa, continuar;
     ImageView[][] tabuleiro;
-    int[] corpo = new int[2];
+    int[] corpo;
     int[] fruta = new int[2];
     int[] sentido = new int[2];
     int tamgrid, dificuldade, count = 0, x, y;
-    int x_temp, y_temp;
     ArrayList<int[]> cobra = new ArrayList<int[]>();
 
     @Override
@@ -39,8 +40,12 @@ public class Agrade extends AppCompatActivity {
 
         pontu = (TextView) findViewById((R.id.score));
         gl = (GridLayout) findViewById(R.id.gridLayout);
-        //pausa = (ImageButton)findViewById(R.id.botPausa);
-        //continuar = (ImageButton)findViewById(R.id.botaoContinua);
+        cima = (Button)findViewById(R.id.cima);
+        baixo = (Button)findViewById(R.id.baixo);
+        esq = (Button)findViewById(R.id.esquerda);
+        dir = (Button)findViewById(R.id.direita);
+        pausa = (ImageButton) findViewById(R.id.botPausa);
+        continuar = (ImageButton) findViewById(R.id.botaoContinua);
 
 
         //pega valores do bundle, o tamanho que sera a grade e a dificuldade
@@ -66,6 +71,7 @@ public class Agrade extends AppCompatActivity {
         //tabuleiro[20][20].setImageResource(R.color.Black);
 
         //criando a cabeça e add na posição 0;
+        corpo = new int[2];
         corpo[0] = 0;
         corpo[1] = 0;
         cobra.add(0, corpo);
@@ -93,7 +99,7 @@ public class Agrade extends AppCompatActivity {
             public void run() {
                 while (running) {
                     try {
-                        Thread.sleep(500);
+                        Thread.sleep(dificuldade);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -104,10 +110,12 @@ public class Agrade extends AppCompatActivity {
 
                             //teste de fruta
                             if (cobra.get(0)[0] == fruta[0] && cobra.get(0)[1] == fruta[1]) {
+                                count+=1;
+                                pontu.setText("Pontuação: "+count);
                                 int ultimapos = cobra.size(); //pega a ultima posicao do array cobra
                                 x = cobra.get(ultimapos - 1)[0];
                                 y = cobra.get(ultimapos - 1)[1];
-
+                                corpo = new int[2];
                                 corpo[0] = x;//pega os parametros de um ponto qualquer
                                 corpo[1] = y;
                                 cobra.add(ultimapos, corpo); //cria um novo tile da cobra
@@ -122,44 +130,22 @@ public class Agrade extends AppCompatActivity {
                                 tabuleiro[posCobra[0]][posCobra[1]].setImageResource(R.color.White);
                             }
 
-
-                            x_temp = cobra.get(0)[0];
-                            y_temp = cobra.get(0)[1];
-
-                            Log.i("coordenadas", "X: "+x_temp+" Y: "+y_temp);
-                            Log.i("Cabeça", "Antes: "+cobra.get(0)[1]);
-
-                            cobra.get(0)[0] += sentido[0];
-                            cobra.get(0)[1] += sentido[1];
-
-                            Log.i("Cabeça", "Depois: "+cobra.get(0)[1]);
-
-                            for (int i = cobra.size() - 1; i > 0; i--) {
-                                if(i == 1) {
-                                    cobra.get(i)[0] = x_temp;
-                                    cobra.get(i)[1] = y_temp;
-                                    break;
-                                }
-                                cobra.get(i)[0] = cobra.get(i - 1)[0];
-                                cobra.get(i)[1] = cobra.get(i - 1)[1];
-                            }
-
                             //muda a posição da cobra OBS: AINDA NAO PINTA NA TELA
-                            /*for (int i = cobra.size() - 1; i >= 0; i--) {
+                            for (int i = cobra.size() - 1; i >= 0; i--) {
                                 //se nao for a cabeça
                                 Log.i("Movimento", "i = " + i);
                                 if (i != 0) {
-                                    Log.i("Move Tile", "Tile: " + i + " pos antiga: " + cobra.get(i)[1]);
+                                    //Log.i("Move Tile", "Tile: " + i + " pos antiga: " + cobra.get(i)[1]);
                                     cobra.get(i)[0] = cobra.get(i - 1)[0];
                                     cobra.get(i)[1] = cobra.get(i - 1)[1];
-                                    Log.i("Move Tile", "Tile: " + i + " pos nova: " + cobra.get(i)[1]);
+                                    //Log.i("Move Tile", "Tile: " + i + " pos nova: " + cobra.get(i)[1]);
                                 } else {
-                                    Log.i("Move cabeça", "Tile: " + i + " pos antiga: " + cobra.get(i)[1]);
+                                    //Log.i("Move cabeça", "Tile: " + i + " pos antiga: " + cobra.get(i)[1]);
                                     cobra.get(i)[0] += sentido[0];
                                     cobra.get(i)[1] += sentido[1];
-                                    Log.i("Move cabeça", "Tile: " + i + " pos nova: " + cobra.get(i)[1]);
+                                    //Log.i("Move cabeça", "Tile: " + i + " pos nova: " + cobra.get(i)[1]);
                                 }
-                            }*/
+                            }
 
                             //teste de borda
                             //tratamento de borda
@@ -172,15 +158,28 @@ public class Agrade extends AppCompatActivity {
                                 cobra.get(0)[1] = 0;
                             }
                             //se os dois estiverem nos limites, zera tuto
+                            //esse caso nunca acontece, mas vamos deixar aqui por descarne de consciencia
                             else if (cobra.get(0)[0] >= tamgrid && cobra.get(0)[1] >= tamgrid) {
                                 cobra.get(0)[0] = 0;
                                 cobra.get(0)[1] = 0;
+                            }
+                            if (cobra.get(0)[0] == -1) {
+                                cobra.get(0)[0] = tamgrid - 1;
+                            } else if (cobra.get(0)[1] == -1) {
+                                cobra.get(0)[1] = tamgrid - 1;
                             }
                             //se nao atender nenhum dos casos, a cobra anda normal
 
                             //imprime na tela
                             for (int[] snake : cobra) {
                                 tabuleiro[snake[0]][snake[1]].setImageResource(R.color.Black);
+                            }
+                            //Testa de a cobra se tocou
+                            for (int i = 1; i <= cobra.size() - 1; i++) {
+                                if (cobra.get(0)[0] == cobra.get(i)[0] && cobra.get(0)[1] == cobra.get(i)[1]) {
+                                    //pontu.setText("VOCÊ MORREU!");
+                                    running = false;
+                                }
                             }
 
                         }
@@ -197,6 +196,46 @@ public class Agrade extends AppCompatActivity {
         } else {
             pausa.setVisibility(View.VISIBLE);
             continuar.setVisibility(View.INVISIBLE);
+        }
+        if (running)
+            running = false;
+        else {
+            running = true;
+            startTimerThread();
+        }
+    }
+
+    public void Direcao(View v) {
+        int id = v.getId();
+        switch (id) {
+            case R.id.cima:
+                sentido[0] = -1;
+                sentido[1] = 0;
+                baixo.setClickable(false);
+                esq.setClickable(true);
+                dir.setClickable(true);
+                break;
+            case R.id.baixo:
+                sentido[0] = 1;
+                sentido[1] = 0;
+                cima.setClickable(false);
+                esq.setClickable(true);
+                dir.setClickable(true);
+                break;
+            case R.id.esquerda:
+                sentido[0] = 0;
+                sentido[1] = 1;
+                dir.setClickable(false);
+                cima.setClickable(true);
+                baixo.setClickable(true);
+                break;
+            case R.id.direita:
+                sentido[0] = 0;
+                sentido[1] = -1;
+                esq.setClickable(false);
+                baixo.setClickable(true);
+                cima.setClickable(true);
+                break;
         }
     }
 }

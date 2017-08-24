@@ -31,35 +31,35 @@ public class Configuracoes extends AppCompatActivity {
         dif = b.getInt("dificuldade");
         tamgrid = b.getInt("tamanhograde");
 
-        if(dif == 1){
+        if(dif == 750){
             rb1.setChecked(true);
-        } else if(dif == 2){
+        } else if(dif == 500){
             rb2.setChecked(true);
-        }else if(dif == 3){
+        }else if(dif == 250){
             rb3.setChecked(true);
         }
-        if(tamgrid == 1){
+        if(tamgrid == 25){
             rbp.setChecked(true);
-        }else if(tamgrid == 2){
+        }else if(tamgrid == 40){
             rbg.setChecked(true);
         }
     }
 
     public void onRadioButton1Clicked(View view) {
         if(R.id.fac == rg1.getCheckedRadioButtonId()){
-            dif = 1;
+            dif = 750;
         }else if(R.id.medio == rg1.getCheckedRadioButtonId()){
-            dif = 2;
+            dif = 500;
         }else if(R.id.dificil == rg1.getCheckedRadioButtonId()){
-            dif = 3;
+            dif = 250;
         }
     }
 
     public void onRadioButton2Clicked(View v){
         if(R.id.peq == rg2.getCheckedRadioButtonId()){
-            tamgrid = 25;
+            tamgrid = 15;
         } else if(R.id.gran == rg2.getCheckedRadioButtonId()){
-            tamgrid = 50;
+            tamgrid = 35;
         }
     }
 
