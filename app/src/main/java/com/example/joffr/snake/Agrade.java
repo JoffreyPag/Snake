@@ -32,6 +32,7 @@ public class Agrade extends AppCompatActivity {
     int[] fruta = new int[2];
     int[] sentido = new int[2];
     int tamgrid, dificuldade, count = 0, x, y;
+    Random gerador;
     ArrayList<int[]> cobra = new ArrayList<int[]>();
 
     @Override
@@ -53,7 +54,7 @@ public class Agrade extends AppCompatActivity {
         Bundle b = getIntent().getExtras();
         tamgrid = b.getInt("tamanhograde");
         dificuldade = b.getInt("dificuldade");
-
+        count = b.getInt("pontumin",0);
         //tamanho da grade XY baseado no bundle recebido
         tabuleiro = new ImageView[tamgrid][tamgrid];
         gl.setColumnCount(tamgrid);
@@ -78,16 +79,16 @@ public class Agrade extends AppCompatActivity {
         cobra.add(0, corpo);
 
         //posição inicial da fruta
-        fruta[0] = 0;
-        fruta[1] = 5;
+        gerador = new Random();
+        NovaFruta();
 
         //sentido incial (0,1) pra direita
         sentido[0] = 0;
         sentido[1] = 1;
 
-        tabuleiro[fruta[0]][fruta[1]].setImageResource(R.color.Red);
 
-        //System.out.println(cobra.size());
+
+        pontu.setText("Pontuaçãp: "+count);
         startTimerThread();
 
     }
@@ -120,10 +121,9 @@ public class Agrade extends AppCompatActivity {
                                 corpo[0] = x;//pega os parametros de um ponto qualquer
                                 corpo[1] = y;
                                 cobra.add(ultimapos, corpo); //cria um novo tile da cobra
-                                //reposiciona a fruta --CODIGO TEMPORARIO--
-                                //fruta[0] = 5;
-                                //fruta[1] = 6;
-                                tabuleiro[fruta[0]][fruta[1]].setImageResource(R.color.Red);
+                                //reposiciona a fruta
+                                NovaFruta();
+
                             }
 
                             //limpa a tela
@@ -242,5 +242,28 @@ public class Agrade extends AppCompatActivity {
                 cima.setClickable(true);
                 break;
         }
+    }
+    public void Salvar(View v){
+        Intent i = new Intent();
+        Bundle b = new Bundle();
+        b.putInt("pontumin", count);
+        i.putExtras(b);
+        setResult(RESULT_OK, i);
+        finish();
+    }
+
+    public void NovaFruta(){
+        //atribui nova posição
+        fruta[0] = gerador.nextInt(tamgrid);
+        fruta[1] = gerador.nextInt(tamgrid);
+        //ver se esta em cima da cobra
+        for (int i = 0; i<cobra.size(); i++){
+            if(fruta[0] == cobra.get(i)[0] && fruta[1] == cobra.get(i)[1]){
+                //se estiver chama a função novameno e interrompe o for
+                NovaFruta();
+                break;
+            }
+        }
+        tabuleiro[fruta[0]][fruta[1]].setImageResource(R.color.Red);
     }
 }

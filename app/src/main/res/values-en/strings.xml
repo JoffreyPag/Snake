@@ -20,4 +20,5 @@
     <string name="score">"Score: "</string>
     <string name="gameOver">Game Over</string>
     <string name="Quit">Quit</string>
+    <string name="Save">Save e Quit</string>
 </resources>

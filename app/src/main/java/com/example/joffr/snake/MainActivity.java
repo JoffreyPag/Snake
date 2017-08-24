@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -12,20 +13,38 @@ public class MainActivity extends AppCompatActivity {
     private static final String PONTUACAO = "PONTMAX";
     private static final String DIFICULDADE = "DIF";
     private static final String TAMGRANDE = "TAMANHODAGRADE";
+    private static final String PONTUSAVE = "SAVEPONTU";
+    private static final String CONTINUE = "CONTINUE";
     private static final int CONFS = 11;
+    private static final int ENDGAME = 22;
 
-    int pontuacao, dif, tamgrade;
+    int pontuacao,pontumin, dif, tamgrade;
+
+    boolean continuar;
+
+    Button conti;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        conti = (Button)findViewById(R.id.button2);
+
         SharedPreferences save = getSharedPreferences(SALVASTATUS, MODE_PRIVATE);
 
         pontuacao = save.getInt(PONTUACAO, 0);
         dif = save.getInt(DIFICULDADE, 500);
         tamgrade = save.getInt(TAMGRANDE, 15);
+        continuar = save.getBoolean(CONTINUE, false);
+        pontumin = save.getInt(PONTUSAVE, 0);
+
+        if(continuar){
+            conti.setVisibility(View.VISIBLE);
+        }else{
+            conti.setVisibility(View.INVISIBLE);
+        }
+
     }
 
     public void NovoJogo(View v) {
@@ -35,13 +54,18 @@ public class MainActivity extends AppCompatActivity {
         b.putInt("dificuldade", dif);
         b.putInt("tamanhograde", tamgrade);
         i.putExtras(b);
-        startActivity(i);
+        startActivityForResult(i, ENDGAME);
     }
 
     public void Continuar(View v) {
-        /*Intent i = new Intent(this, Configuracoes.class);
-        startActivity(i);*/
-        Toast.makeText(this, "aaa", Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(this, Agrade.class);
+        Bundle b = new Bundle();
+        b.putInt("pontumin", pontumin);
+        b.putInt("pontMax", pontuacao);
+        b.putInt("dificuldade", dif);
+        b.putInt("tamanhograde", tamgrade);
+        i.putExtras(b);
+        startActivityForResult(i, ENDGAME);
 
     }
 
@@ -58,8 +82,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CONFS) {
             if (resultCode == RESULT_OK) {
-                dif = data.getIntExtra("dificuldade", 2);
-                tamgrade = data.getIntExtra("tamanhograde", 1);
+                int novadif = data.getIntExtra("dificuldade", 500);
+                int novotam = data.getIntExtra("tamanhograde", 15);
+                if(novadif != dif || novotam == tamgrade){
+                    continuar = false;
+                    dif = novadif;
+                    tamgrade = novotam;
+                    conti.setVisibility(View.INVISIBLE);
+                }
+
+            }
+        }else if(requestCode == ENDGAME){
+            if (resultCode == RESULT_OK){
+                pontumin = data.getIntExtra("pontumin", 0);
+                continuar = true;
+                Toast.makeText(this, ""+pontumin, Toast.LENGTH_SHORT);
             }
         }
     }
@@ -72,6 +109,8 @@ public class MainActivity extends AppCompatActivity {
         editor.putInt(PONTUACAO, pontuacao);
         editor.putInt(DIFICULDADE, dif);
         editor.putInt(TAMGRANDE, tamgrade);
+        editor.putInt(PONTUSAVE, pontumin);
+        editor.putBoolean(CONTINUE, continuar);
 
         editor.commit();
     }

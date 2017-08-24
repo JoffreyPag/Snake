@@ -127,7 +127,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.494"
+            app:layout_constraintVertical_bias="0.088"
             app:srcCompat="@android:drawable/ic_media_pause" />
 
         <ImageButton
@@ -148,8 +148,24 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.445"
+            app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@android:drawable/ic_media_play" />
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="26dp"
+            android:background="@color/GreenSnakeDark"
+            android:onClick="Salvar"
+            android:text="@string/Save"
+            android:textColor="@color/GreenSnake"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/botaoContinua" />
 
 
     </android.support.constraint.ConstraintLayout>
