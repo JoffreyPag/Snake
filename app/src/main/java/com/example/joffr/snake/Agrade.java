@@ -131,10 +131,10 @@ public class Agrade extends AppCompatActivity {
                                     cobra.get(i)[1] = cobra.get(i - 1)[1];
                                     Log.i("Move Tile", "Tile: "+i+" pos nova: "+cobra.get(i)[1]);
                                 } else {
-                                    Log.i("Move cabeça", "Tile: "+i+"pos antiga: "+cobra.get(i)[1]);
+                                    Log.i("Move cabeça", "Tile: "+i+" pos antiga: "+cobra.get(i)[1]);
                                     cobra.get(i)[0] += sentido[0];
                                     cobra.get(i)[1] += sentido[1];
-                                    Log.i("Move cabeça", "Tile: "+i+"pos nova: "+cobra.get(i)[1]);
+                                    Log.i("Move cabeça", "Tile: "+i+" pos nova: "+cobra.get(i)[1]);
                                 }
                             }
                             //teste de borda
