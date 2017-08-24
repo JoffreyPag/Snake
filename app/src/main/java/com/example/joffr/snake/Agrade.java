@@ -29,6 +29,7 @@ public class Agrade extends AppCompatActivity {
     int[] fruta = new int[2];
     int[] sentido = new int[2];
     int tamgrid, dificuldade, count = 0, x, y;
+    int x_temp, y_temp;
     ArrayList<int[]> cobra = new ArrayList<int[]>();
 
     @Override
@@ -121,8 +122,30 @@ public class Agrade extends AppCompatActivity {
                                 tabuleiro[posCobra[0]][posCobra[1]].setImageResource(R.color.White);
                             }
 
+
+                            x_temp = cobra.get(0)[0];
+                            y_temp = cobra.get(0)[1];
+
+                            Log.i("coordenadas", "X: "+x_temp+" Y: "+y_temp);
+                            Log.i("Cabeça", "Antes: "+cobra.get(0)[1]);
+
+                            cobra.get(0)[0] += sentido[0];
+                            cobra.get(0)[1] += sentido[1];
+
+                            Log.i("Cabeça", "Depois: "+cobra.get(0)[1]);
+
+                            for (int i = cobra.size() - 1; i > 0; i--) {
+                                if(i == 1) {
+                                    cobra.get(i)[0] = x_temp;
+                                    cobra.get(i)[1] = y_temp;
+                                    break;
+                                }
+                                cobra.get(i)[0] = cobra.get(i - 1)[0];
+                                cobra.get(i)[1] = cobra.get(i - 1)[1];
+                            }
+
                             //muda a posição da cobra OBS: AINDA NAO PINTA NA TELA
-                            for (int i = cobra.size() - 1; i >= 0; i--) {
+                            /*for (int i = cobra.size() - 1; i >= 0; i--) {
                                 //se nao for a cabeça
                                 Log.i("Movimento", "i = " + i);
                                 if (i != 0) {
@@ -136,7 +159,7 @@ public class Agrade extends AppCompatActivity {
                                     cobra.get(i)[1] += sentido[1];
                                     Log.i("Move cabeça", "Tile: " + i + " pos nova: " + cobra.get(i)[1]);
                                 }
-                            }
+                            }*/
 
                             //teste de borda
                             //tratamento de borda
