@@ -31,7 +31,7 @@ public class Agrade extends AppCompatActivity {
     int[] corpo;
     int[] fruta = new int[2];
     int[] sentido = new int[2];
-    int tamgrid, dificuldade, count = 0, x, y;
+    int tamgrid, dificuldade, count = 0, x, y, pontmax;
     Random gerador;
     ArrayList<int[]> cobra = new ArrayList<int[]>();
 
@@ -54,7 +54,8 @@ public class Agrade extends AppCompatActivity {
         Bundle b = getIntent().getExtras();
         tamgrid = b.getInt("tamanhograde");
         dificuldade = b.getInt("dificuldade");
-        count = b.getInt("pontumin",0);
+        count = b.getInt("pontumin", 0);
+        pontmax = b.getInt("pontMax", 0);
         //tamanho da grade XY baseado no bundle recebido
         tabuleiro = new ImageView[tamgrid][tamgrid];
         gl.setColumnCount(tamgrid);
@@ -87,8 +88,7 @@ public class Agrade extends AppCompatActivity {
         sentido[1] = 1;
 
 
-
-        pontu.setText("Pontuaçãp: "+count);
+        pontu.setText("Pontuaçãp: " + count);
         startTimerThread();
 
     }
@@ -182,7 +182,14 @@ public class Agrade extends AppCompatActivity {
                                     running = false;
                                     Intent ni = new Intent(Agrade.this, Resultado.class);
                                     ni.putExtra("pontuacao", "" + count);
-                                    setResult(RESULT_CANCELED);
+                                    Intent retorno = new Intent();
+                                    if (pontmax <= count) {
+                                        retorno = new Intent();
+                                        retorno.putExtra("pontMax", count);
+                                    } else {
+                                        retorno.putExtra("pontMax", pontmax);
+                                    }
+                                    setResult(RESULT_CANCELED, retorno);
                                     startActivity(ni);
                                     finish();
                                 }
@@ -244,7 +251,8 @@ public class Agrade extends AppCompatActivity {
                 break;
         }
     }
-    public void Salvar(View v){
+
+    public void Salvar(View v) {
         Intent i = new Intent();
         Bundle b = new Bundle();
         b.putInt("pontumin", count);
@@ -253,13 +261,13 @@ public class Agrade extends AppCompatActivity {
         finish();
     }
 
-    public void NovaFruta(){
+    public void NovaFruta() {
         //atribui nova posição
         fruta[0] = gerador.nextInt(tamgrid);
         fruta[1] = gerador.nextInt(tamgrid);
         //ver se esta em cima da cobra
-        for (int i = 0; i<cobra.size(); i++){
-            if(fruta[0] == cobra.get(i)[0] && fruta[1] == cobra.get(i)[1]){
+        for (int i = 0; i < cobra.size(); i++) {
+            if (fruta[0] == cobra.get(i)[0] && fruta[1] == cobra.get(i)[1]) {
                 //se estiver chama a função novameno e interrompe o for
                 NovaFruta();
                 break;

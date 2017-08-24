@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,12 +25,15 @@ public class MainActivity extends AppCompatActivity {
 
     Button conti;
 
+    TextView record;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         conti = (Button)findViewById(R.id.button2);
+        record = (TextView)findViewById(R.id.reco);
 
         SharedPreferences save = getSharedPreferences(SALVASTATUS, MODE_PRIVATE);
 
@@ -39,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         continuar = save.getBoolean(CONTINUE, false);
         pontumin = save.getInt(PONTUSAVE, 0);
 
+        record.setText(""+pontuacao);
         if(continuar){
             conti.setVisibility(View.VISIBLE);
         }else{
@@ -98,6 +103,9 @@ public class MainActivity extends AppCompatActivity {
                 continuar = true;
                 conti.setVisibility(View.VISIBLE);
                 Toast.makeText(this, "Jogo salvo", Toast.LENGTH_SHORT).show();
+            }else if(resultCode == RESULT_CANCELED){
+                pontuacao = data.getIntExtra("pontMax",0);
+                record.setText(""+pontuacao);
             }
         }
     }
