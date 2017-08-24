@@ -38,9 +38,9 @@ public class Configuracoes extends AppCompatActivity {
         } else if (dif == 250) {
             rb3.setChecked(true);
         }
-        if (tamgrid == 25) {
+        if (tamgrid == 15) {
             rbp.setChecked(true);
-        } else if (tamgrid == 40) {
+        } else if (tamgrid == 35) {
             rbg.setChecked(true);
         }
     }

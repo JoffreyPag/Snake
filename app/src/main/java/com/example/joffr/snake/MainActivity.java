@@ -84,18 +84,19 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 int novadif = data.getIntExtra("dificuldade", 500);
                 int novotam = data.getIntExtra("tamanhograde", 15);
-                if(novadif != dif || novotam == tamgrade){
+                if(novadif != dif || novotam != tamgrade){
                     continuar = false;
-                    dif = novadif;
-                    tamgrade = novotam;
                     conti.setVisibility(View.INVISIBLE);
                 }
+                dif = novadif;
+                tamgrade = novotam;
 
             }
         }else if(requestCode == ENDGAME){
             if (resultCode == RESULT_OK){
                 pontumin = data.getIntExtra("pontumin", 0);
                 continuar = true;
+                conti.setVisibility(View.VISIBLE);
                 Toast.makeText(this, ""+pontumin, Toast.LENGTH_SHORT);
             }
         }

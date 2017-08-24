@@ -182,6 +182,7 @@ public class Agrade extends AppCompatActivity {
                                     running = false;
                                     Intent ni = new Intent(Agrade.this, Resultado.class);
                                     ni.putExtra("pontuacao", "" + count);
+                                    setResult(RESULT_CANCELED);
                                     startActivity(ni);
                                     finish();
                                 }
