@@ -33,7 +33,7 @@ public class Agrade extends AppCompatActivity {
     int[] fruta = new int[2];
     int[] sentido = new int[2];
     int tamgrid, dificuldade, count = 0, x, y, pontmax;
-    String posicoes = "!", vetoresSalvos = "N", orientacao="";
+    String posicoes = "!", vetoresSalvos = "N", orientacao = "";
     Random gerador;
     ArrayList<int[]> cobra = new ArrayList<int[]>();
 
@@ -76,7 +76,7 @@ public class Agrade extends AppCompatActivity {
             }
         }
 
-        Log.i("ParametrosRecuperados", "Tamanho da cobra: "+tamCobra+"\nPosicoes: "+vetoresSalvos);
+        //Log.i("ParametrosRecuperados", "Tamanho da cobra: " + tamCobra + "\nPosicoes: " + vetoresSalvos);
         //CONSTROE A COBRA
         if (vetoresSalvos.equals("N")) {
             NovaCobra();
@@ -90,7 +90,6 @@ public class Agrade extends AppCompatActivity {
 
         //sentido incial (0,1) pra direita
         setSentido();
-
 
 
         pontu.setText("Pontuaçãp: " + count);
@@ -227,19 +226,38 @@ public class Agrade extends AppCompatActivity {
         int id = v.getId();
         switch (id) {
             case R.id.cima:
+                sentido[0] = -1;
+                sentido[1] = 0;
+                baixo.setClickable(false);
+                esq.setClickable(true);
+                dir.setClickable(true);
                 orientacao = "CIMA";
                 break;
             case R.id.baixo:
+                sentido[0] = 1;
+                sentido[1] = 0;
+                cima.setClickable(false);
+                esq.setClickable(true);
+                dir.setClickable(true);
                 orientacao = "BAIXO";
                 break;
             case R.id.esquerda:
+                sentido[0] = 0;
+                sentido[1] = 1;
+                dir.setClickable(false);
+                cima.setClickable(true);
+                baixo.setClickable(true);
                 orientacao = "ESQUERDA";
                 break;
             case R.id.direita:
+                sentido[0] = 0;
+                sentido[1] = -1;
+                esq.setClickable(false);
+                baixo.setClickable(true);
+                cima.setClickable(true);
                 orientacao = "DIREITA";
                 break;
         }
-        setSentido();
     }
 
     public void Salvar(View v) {
@@ -252,7 +270,7 @@ public class Agrade extends AppCompatActivity {
         tamCobra = cobra.size();
         //variavel que armazenara todas as posicoes da cobra
         for (int snake[] : cobra) {
-            posicoes += snake[0] + "/" + snake[1]+"!";
+            posicoes += snake[0] + "/" + snake[1] + "!";
         }
         //Log.i("Parametros salvos", "Posicoes: " + posicoes + "\ntamanho: " + (tamCobra - 1));
         b.putString("posicoes", posicoes);
@@ -272,7 +290,7 @@ public class Agrade extends AppCompatActivity {
     public void RecuperaCobra() {
         //percorre a string recebida no bundle
         //Log.i("Tamanho da String:", ""+vetoresSalvos.length());
-        for (int i = 0; i < (vetoresSalvos.length()-1); i++) {
+        for (int i = 0; i < (vetoresSalvos.length() - 1); i++) {
             //Log.i("indice", ""+i);
             //se o charectere for "!" significa que começou os parametros de um ponto da cobra
             if (vetoresSalvos.charAt(i) == '!') {
@@ -298,12 +316,12 @@ public class Agrade extends AppCompatActivity {
         // aux = Integer.parseInt(String.valueOf(digits.charAt(i)));//converter para string
     }
 
-    public void setSentido(){
-        if(orientacao.isEmpty()){
+    public void setSentido() {
+        if (orientacao.isEmpty()) {
             sentido[0] = 0;
             sentido[1] = 1;
-        }else{
-            switch (orientacao){
+        } else {
+            switch (orientacao) {
                 case "CIMA":
                     sentido[0] = -1;
                     sentido[1] = 0;

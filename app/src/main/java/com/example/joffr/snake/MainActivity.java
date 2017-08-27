@@ -21,8 +21,8 @@ public class MainActivity extends AppCompatActivity {
     private static final int CONFS = 11;
     private static final int ENDGAME = 22;
 
-    String posicoes="", sentido="";
-    int pontuacao,pontumin, dif, tamgrade;
+    String posicoes = "", sentido = "";
+    int pontuacao, pontumin, dif, tamgrade;
     int var[];
 
     boolean continuar;
@@ -36,8 +36,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        conti = (Button)findViewById(R.id.button2);
-        record = (TextView)findViewById(R.id.reco);
+        conti = (Button) findViewById(R.id.button2);
+        record = (TextView) findViewById(R.id.reco);
 
         SharedPreferences save = getSharedPreferences(SALVASTATUS, MODE_PRIVATE);
 
@@ -49,10 +49,10 @@ public class MainActivity extends AppCompatActivity {
         posicoes = save.getString(VETORPOSICOES, "");
         sentido = save.getString(ORIENTACAOSALVA, "");
 
-        record.setText(""+pontuacao);
-        if(continuar){
+        record.setText("" + pontuacao);
+        if (continuar) {
             conti.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             conti.setVisibility(View.INVISIBLE);
         }
 
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 int novadif = data.getIntExtra("dificuldade", 500);
                 int novotam = data.getIntExtra("tamanhograde", 15);
-                if(novadif != dif || novotam != tamgrade){
+                if (novadif != dif || novotam != tamgrade) {
                     continuar = false;
                     conti.setVisibility(View.INVISIBLE);
                 }
@@ -105,18 +105,21 @@ public class MainActivity extends AppCompatActivity {
                 tamgrade = novotam;
 
             }
-        }else if(requestCode == ENDGAME){
-            if (resultCode == RESULT_OK){
+        } else if (requestCode == ENDGAME) {
+            if (resultCode == RESULT_OK) {
                 pontumin = data.getIntExtra("pontumin", 0); //PONTUACAO CONQUISTADA ATE O MOMENTO
-                 //posicoes salvas
+                //posicoes salvas
                 posicoes = data.getStringExtra("posicoes");
                 sentido = data.getStringExtra("sentido");
                 continuar = true;
                 conti.setVisibility(View.VISIBLE);
                 Toast.makeText(this, "Jogo salvo", Toast.LENGTH_SHORT).show();
-            }else if(resultCode == RESULT_CANCELED){
-                pontuacao = data.getIntExtra("pontMax",0);
-                record.setText(""+pontuacao);
+            } else if (resultCode == RESULT_CANCELED) {
+                if (data == null) {
+                    return;
+                }
+                pontuacao = data.getIntExtra("pontMax", 0);
+                record.setText("" + pontuacao);
             }
         }
     }
