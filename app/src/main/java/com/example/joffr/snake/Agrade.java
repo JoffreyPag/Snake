@@ -355,7 +355,6 @@ public class Agrade extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        Log.i("Foi chamado","sim");
         running = false;
     }
 
@@ -363,7 +362,6 @@ public class Agrade extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         running = true;
-        Log.i("Retornou", "sim");
         startTimerThread();
     }
 }
