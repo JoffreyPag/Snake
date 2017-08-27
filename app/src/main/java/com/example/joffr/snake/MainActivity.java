@@ -16,13 +16,13 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAMGRANDE = "TAMANHODAGRADE";
     private static final String PONTUSAVE = "SAVEPONTU";
     private static final String CONTINUE = "CONTINUE";
-    private static final String TAMANHOATUAL = "TAMANHOCOBRA";
+    private static final String ORIENTACAOSALVA = "SENTIDO";
     private static final String VETORPOSICOES = "VETORCOBRA";
     private static final int CONFS = 11;
     private static final int ENDGAME = 22;
 
-    String posicoes="";
-    int pontuacao,pontumin, dif, tamgrade, tamanhoCobra;
+    String posicoes="", sentido="";
+    int pontuacao,pontumin, dif, tamgrade;
     int var[];
 
     boolean continuar;
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         continuar = save.getBoolean(CONTINUE, false);
         pontumin = save.getInt(PONTUSAVE, 0);
         posicoes = save.getString(VETORPOSICOES, "");
-        tamanhoCobra = save.getInt(TAMANHOATUAL, 0);
+        sentido = save.getString(ORIENTACAOSALVA, "");
 
         record.setText(""+pontuacao);
         if(continuar){
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         b.putInt("dificuldade", dif);
         b.putInt("tamanhograde", tamgrade);
         b.putString("posicoes", posicoes);
-        b.putInt("tamanhoAtual", tamanhoCobra);
+        b.putString("sentido", sentido);
         i.putExtras(b);
         startActivityForResult(i, ENDGAME);
 
@@ -107,11 +107,10 @@ public class MainActivity extends AppCompatActivity {
             }
         }else if(requestCode == ENDGAME){
             if (resultCode == RESULT_OK){
-                pontumin = data.getIntExtra("pontumin", 0);
-                //tamanho atual
-                tamanhoCobra = data.getIntExtra("tamanhoAtual", 0);
-                //posicoes salvas
+                pontumin = data.getIntExtra("pontumin", 0); //PONTUACAO CONQUISTADA ATE O MOMENTO
+                 //posicoes salvas
                 posicoes = data.getStringExtra("posicoes");
+                sentido = data.getStringExtra("sentido");
                 continuar = true;
                 conti.setVisibility(View.VISIBLE);
                 Toast.makeText(this, "Jogo salvo", Toast.LENGTH_SHORT).show();
@@ -132,9 +131,8 @@ public class MainActivity extends AppCompatActivity {
         editor.putInt(TAMGRANDE, tamgrade);
         editor.putInt(PONTUSAVE, pontumin);
         editor.putBoolean(CONTINUE, continuar);
-        editor.putInt(TAMANHOATUAL, tamanhoCobra);
         editor.putString(VETORPOSICOES, posicoes);
-
+        editor.putString(ORIENTACAOSALVA, sentido);
 
         editor.commit();
     }

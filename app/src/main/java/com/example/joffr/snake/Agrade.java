@@ -33,7 +33,7 @@ public class Agrade extends AppCompatActivity {
     int[] fruta = new int[2];
     int[] sentido = new int[2];
     int tamgrid, dificuldade, count = 0, x, y, pontmax;
-    String posicoes = "!", vetoresSalvos = "N";
+    String posicoes = "!", vetoresSalvos = "N", orientacao="";
     Random gerador;
     ArrayList<int[]> cobra = new ArrayList<int[]>();
 
@@ -60,6 +60,7 @@ public class Agrade extends AppCompatActivity {
         pontmax = b.getInt("pontMax", 0);
         vetoresSalvos = b.getString("posicoes", "N");
         tamCobra = b.getInt("tamanhoAtual", 0);
+        orientacao = b.getString("sentido", "");
 
         //tamanho da grade XY baseado no bundle recebido
         tabuleiro = new ImageView[tamgrid][tamgrid];
@@ -83,47 +84,13 @@ public class Agrade extends AppCompatActivity {
             RecuperaCobra();
         }
 
-        //==================================================================================================
-        /*if (vetoresSalvos.equals("N")) {
-            //se nao tiver nada preenchido entao nao retornou save
-            //criando a cabeça e add na posição 0;
-            corpo = new int[2];
-            corpo[0] = 0;
-            corpo[1] = 0;
-            cobra.add(0, corpo);
-
-        } else {
-            //se o vetores veio preenchido significa que retornou algum save...
-            //int aux=0;
-
-
-
-            for (int j = 0; j < (tamCobra * 2); j++) {
-                corpo = new int[2];
-                //MEU DEUS, ISSO FUNCIONA? NÃO
-                corpo[0] = Integer.parseInt(String.valueOf(vetoresSalvos.charAt(j)));
-                corpo[1] = Integer.parseInt(String.valueOf(vetoresSalvos.charAt(j + 1)));
-                Log.i("Recuperando Save","for: "+j+""+corpo[0]+"/n"+corpo[1]);
-                // aux = Integer.parseInt(String.valueOf(digits.charAt(i)));//converter para string
-                cobra.add(aux, corpo);
-                aux++;
-            }
-            corpo = new int[2];
-            corpo[0] = 0;
-            corpo[1] = 0;
-            cobra.add(0, corpo);
-        }*/
-
-        //===========================================================================================
-
-
         //posição inicial da fruta
         gerador = new Random();
         NovaFruta();
 
         //sentido incial (0,1) pra direita
-        sentido[0] = 0;
-        sentido[1] = 1;
+        setSentido();
+
 
 
         pontu.setText("Pontuaçãp: " + count);
@@ -260,34 +227,19 @@ public class Agrade extends AppCompatActivity {
         int id = v.getId();
         switch (id) {
             case R.id.cima:
-                sentido[0] = -1;
-                sentido[1] = 0;
-                baixo.setClickable(false);
-                esq.setClickable(true);
-                dir.setClickable(true);
+                orientacao = "CIMA";
                 break;
             case R.id.baixo:
-                sentido[0] = 1;
-                sentido[1] = 0;
-                cima.setClickable(false);
-                esq.setClickable(true);
-                dir.setClickable(true);
+                orientacao = "BAIXO";
                 break;
             case R.id.esquerda:
-                sentido[0] = 0;
-                sentido[1] = 1;
-                dir.setClickable(false);
-                cima.setClickable(true);
-                baixo.setClickable(true);
+                orientacao = "ESQUERDA";
                 break;
             case R.id.direita:
-                sentido[0] = 0;
-                sentido[1] = -1;
-                esq.setClickable(false);
-                baixo.setClickable(true);
-                cima.setClickable(true);
+                orientacao = "DIREITA";
                 break;
         }
+        setSentido();
     }
 
     public void Salvar(View v) {
@@ -302,9 +254,9 @@ public class Agrade extends AppCompatActivity {
         for (int snake[] : cobra) {
             posicoes += snake[0] + "/" + snake[1]+"!";
         }
-        Log.i("Parametros salvos", "Posicoes: " + posicoes + "\ntamanho: " + (tamCobra - 1));
+        //Log.i("Parametros salvos", "Posicoes: " + posicoes + "\ntamanho: " + (tamCobra - 1));
         b.putString("posicoes", posicoes);
-        b.putInt("tamanhoAtual", tamCobra - 1);
+        b.putString("sentido", orientacao);
         i.putExtras(b);
         setResult(RESULT_OK, i);
         finish();
@@ -319,9 +271,9 @@ public class Agrade extends AppCompatActivity {
 
     public void RecuperaCobra() {
         //percorre a string recebida no bundle
-        Log.i("Tamanho da String:", ""+vetoresSalvos.length());
+        //Log.i("Tamanho da String:", ""+vetoresSalvos.length());
         for (int i = 0; i < (vetoresSalvos.length()-1); i++) {
-            Log.i("indice", ""+i);
+            //Log.i("indice", ""+i);
             //se o charectere for "!" significa que começou os parametros de um ponto da cobra
             if (vetoresSalvos.charAt(i) == '!') {
                 corpo = new int[2]; //cria o corpo
@@ -344,6 +296,45 @@ public class Agrade extends AppCompatActivity {
         }
 
         // aux = Integer.parseInt(String.valueOf(digits.charAt(i)));//converter para string
+    }
+
+    public void setSentido(){
+        if(orientacao.isEmpty()){
+            sentido[0] = 0;
+            sentido[1] = 1;
+        }else{
+            switch (orientacao){
+                case "CIMA":
+                    sentido[0] = -1;
+                    sentido[1] = 0;
+                    baixo.setClickable(false);
+                    esq.setClickable(true);
+                    dir.setClickable(true);
+                    break;
+                case "BAIXO":
+                    sentido[0] = 1;
+                    sentido[1] = 0;
+                    cima.setClickable(false);
+                    esq.setClickable(true);
+                    dir.setClickable(true);
+                    break;
+                case "ESQUERDA":
+                    sentido[0] = 0;
+                    sentido[1] = 1;
+                    dir.setClickable(false);
+                    cima.setClickable(true);
+                    baixo.setClickable(true);
+                    break;
+                case "DIREITA":
+                    sentido[0] = 0;
+                    sentido[1] = -1;
+                    esq.setClickable(false);
+                    baixo.setClickable(true);
+                    cima.setClickable(true);
+                    break;
+            }
+        }
+
     }
 
     public void NovaFruta() {
