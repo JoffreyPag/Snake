@@ -33,7 +33,7 @@ public class Agrade extends AppCompatActivity {
     int[] fruta = new int[2];
     int[] sentido = new int[2];
     int tamgrid, dificuldade, count = 0, x, y, pontmax;
-    String posicoes = "", vetoresSalvos = "N";
+    String posicoes = "!", vetoresSalvos = "N";
     Random gerador;
     ArrayList<int[]> cobra = new ArrayList<int[]>();
 
@@ -300,7 +300,7 @@ public class Agrade extends AppCompatActivity {
         tamCobra = cobra.size();
         //variavel que armazenara todas as posicoes da cobra
         for (int snake[] : cobra) {
-            posicoes += "!" + snake[0] + "/" + snake[1];
+            posicoes += snake[0] + "/" + snake[1]+"!";
         }
         Log.i("Parametros salvos", "Posicoes: " + posicoes + "\ntamanho: " + (tamCobra - 1));
         b.putString("posicoes", posicoes);
@@ -321,6 +321,7 @@ public class Agrade extends AppCompatActivity {
         //percorre a string recebida no bundle
         Log.i("Tamanho da String:", ""+vetoresSalvos.length());
         for (int i = 0; i < (vetoresSalvos.length()-1); i++) {
+            Log.i("indice", ""+i);
             //se o charectere for "!" significa que começou os parametros de um ponto da cobra
             if (vetoresSalvos.charAt(i) == '!') {
                 corpo = new int[2]; //cria o corpo
