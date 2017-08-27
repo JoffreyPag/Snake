@@ -99,4 +99,5 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pontuacaodojogo"
         app:srcCompat="@drawable/snakeover" />
+
 </android.support.constraint.ConstraintLayout>

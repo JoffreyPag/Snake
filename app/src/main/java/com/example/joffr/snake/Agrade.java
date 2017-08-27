@@ -352,5 +352,18 @@ public class Agrade extends AppCompatActivity {
         tabuleiro[fruta[0]][fruta[1]].setImageResource(R.color.Red);
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.i("Foi chamado","sim");
+        running = false;
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        running = true;
+        Log.i("Retornou", "sim");
+        startTimerThread();
+    }
 }
