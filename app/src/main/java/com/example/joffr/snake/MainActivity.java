@@ -16,10 +16,14 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAMGRANDE = "TAMANHODAGRADE";
     private static final String PONTUSAVE = "SAVEPONTU";
     private static final String CONTINUE = "CONTINUE";
+    private static final String TAMANHOATUAL = "TAMANHOCOBRA";
+    private static final String VETORPOSICOES = "VETORCOBRA";
     private static final int CONFS = 11;
     private static final int ENDGAME = 22;
 
-    int pontuacao,pontumin, dif, tamgrade;
+    String posicoes="";
+    int pontuacao,pontumin, dif, tamgrade, tamanhoCobra;
+    int var[];
 
     boolean continuar;
 
@@ -42,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
         tamgrade = save.getInt(TAMGRANDE, 15);
         continuar = save.getBoolean(CONTINUE, false);
         pontumin = save.getInt(PONTUSAVE, 0);
+        posicoes = save.getString(VETORPOSICOES, "");
+        tamanhoCobra = save.getInt(TAMANHOATUAL, 0);
 
         record.setText(""+pontuacao);
         if(continuar){
@@ -69,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
         b.putInt("pontMax", pontuacao);
         b.putInt("dificuldade", dif);
         b.putInt("tamanhograde", tamgrade);
+        b.putString("posicoes", posicoes);
+        b.putInt("tamanhoAtual", tamanhoCobra);
         i.putExtras(b);
         startActivityForResult(i, ENDGAME);
 
@@ -100,6 +108,10 @@ public class MainActivity extends AppCompatActivity {
         }else if(requestCode == ENDGAME){
             if (resultCode == RESULT_OK){
                 pontumin = data.getIntExtra("pontumin", 0);
+                //tamanho atual
+                tamanhoCobra = data.getIntExtra("tamanhoAtual", 0);
+                //posicoes salvas
+                posicoes = data.getStringExtra("posicoes");
                 continuar = true;
                 conti.setVisibility(View.VISIBLE);
                 Toast.makeText(this, "Jogo salvo", Toast.LENGTH_SHORT).show();
@@ -120,6 +132,9 @@ public class MainActivity extends AppCompatActivity {
         editor.putInt(TAMGRANDE, tamgrade);
         editor.putInt(PONTUSAVE, pontumin);
         editor.putBoolean(CONTINUE, continuar);
+        editor.putInt(TAMANHOATUAL, tamanhoCobra);
+        editor.putString(VETORPOSICOES, posicoes);
+
 
         editor.commit();
     }

@@ -28,10 +28,12 @@ public class Agrade extends AppCompatActivity {
     Button cima, baixo, esq, dir;
     ImageButton pausa, continuar;
     ImageView[][] tabuleiro;
+    int tamCobra;
     int[] corpo;
     int[] fruta = new int[2];
     int[] sentido = new int[2];
     int tamgrid, dificuldade, count = 0, x, y, pontmax;
+    String posicoes = "", vetoresSalvos = "N";
     Random gerador;
     ArrayList<int[]> cobra = new ArrayList<int[]>();
 
@@ -56,6 +58,9 @@ public class Agrade extends AppCompatActivity {
         dificuldade = b.getInt("dificuldade");
         count = b.getInt("pontumin", 0);
         pontmax = b.getInt("pontMax", 0);
+        vetoresSalvos = b.getString("posicoes", "N");
+        tamCobra = b.getInt("tamanhoAtual", 0);
+
         //tamanho da grade XY baseado no bundle recebido
         tabuleiro = new ImageView[tamgrid][tamgrid];
         gl.setColumnCount(tamgrid);
@@ -70,14 +75,47 @@ public class Agrade extends AppCompatActivity {
             }
         }
 
-        //pinta um ponto qualquer
-        //tabuleiro[20][20].setImageResource(R.color.Black);
+        Log.i("ParametrosRecuperados", "Tamanho da cobra: "+tamCobra+"\nPosicoes: "+vetoresSalvos);
+        //CONSTROE A COBRA
+        if (vetoresSalvos.equals("N")) {
+            NovaCobra();
+        } else {
+            RecuperaCobra();
+        }
 
-        //criando a cabeça e add na posição 0;
-        corpo = new int[2];
-        corpo[0] = 0;
-        corpo[1] = 0;
-        cobra.add(0, corpo);
+        //==================================================================================================
+        /*if (vetoresSalvos.equals("N")) {
+            //se nao tiver nada preenchido entao nao retornou save
+            //criando a cabeça e add na posição 0;
+            corpo = new int[2];
+            corpo[0] = 0;
+            corpo[1] = 0;
+            cobra.add(0, corpo);
+
+        } else {
+            //se o vetores veio preenchido significa que retornou algum save...
+            //int aux=0;
+
+
+
+            for (int j = 0; j < (tamCobra * 2); j++) {
+                corpo = new int[2];
+                //MEU DEUS, ISSO FUNCIONA? NÃO
+                corpo[0] = Integer.parseInt(String.valueOf(vetoresSalvos.charAt(j)));
+                corpo[1] = Integer.parseInt(String.valueOf(vetoresSalvos.charAt(j + 1)));
+                Log.i("Recuperando Save","for: "+j+""+corpo[0]+"/n"+corpo[1]);
+                // aux = Integer.parseInt(String.valueOf(digits.charAt(i)));//converter para string
+                cobra.add(aux, corpo);
+                aux++;
+            }
+            corpo = new int[2];
+            corpo[0] = 0;
+            corpo[1] = 0;
+            cobra.add(0, corpo);
+        }*/
+
+        //===========================================================================================
+
 
         //posição inicial da fruta
         gerador = new Random();
@@ -134,7 +172,7 @@ public class Agrade extends AppCompatActivity {
                             //muda a posição da cobra OBS: AINDA NAO PINTA NA TELA
                             for (int i = cobra.size() - 1; i >= 0; i--) {
                                 //se nao for a cabeça
-                                Log.i("Movimento", "i = " + i);
+
                                 if (i != 0) {
                                     //Log.i("Move Tile", "Tile: " + i + " pos antiga: " + cobra.get(i)[1]);
                                     cobra.get(i)[0] = cobra.get(i - 1)[0];
@@ -253,12 +291,58 @@ public class Agrade extends AppCompatActivity {
     }
 
     public void Salvar(View v) {
+        running = false;
         Intent i = new Intent();
         Bundle b = new Bundle();
+        //Pontuacao atual no jogo
         b.putInt("pontumin", count);
+        //tamanho da cobra
+        tamCobra = cobra.size();
+        //variavel que armazenara todas as posicoes da cobra
+        for (int snake[] : cobra) {
+            posicoes += "!" + snake[0] + "/" + snake[1];
+        }
+        Log.i("Parametros salvos", "Posicoes: " + posicoes + "\ntamanho: " + (tamCobra - 1));
+        b.putString("posicoes", posicoes);
+        b.putInt("tamanhoAtual", tamCobra - 1);
         i.putExtras(b);
         setResult(RESULT_OK, i);
         finish();
+    }
+
+    public void NovaCobra() {
+        corpo = new int[2];
+        corpo[0] = 0;
+        corpo[1] = 0;
+        cobra.add(corpo);
+    }
+
+    public void RecuperaCobra() {
+        //percorre a string recebida no bundle
+        Log.i("Tamanho da String:", ""+vetoresSalvos.length());
+        for (int i = 0; i < (vetoresSalvos.length()-1); i++) {
+            //se o charectere for "!" significa que começou os parametros de um ponto da cobra
+            if (vetoresSalvos.charAt(i) == '!') {
+                corpo = new int[2]; //cria o corpo
+                int j = i;
+                String aux1 = "", aux2 = ""; //cria variaves auxiliares para receber os valores de x e y
+                do {
+                    j++;
+                    aux1 += vetoresSalvos.charAt(j); //enquanto nao chegar no limite "/" enche a string
+                } while (vetoresSalvos.charAt(j + 1) != '/');
+                j++; //soma pra ir pra posicao do "/"
+                do {
+                    j++;
+                    aux2 += vetoresSalvos.charAt(j); //mesma coisa que o de cima porem faz ate achar a "!"
+                } while (vetoresSalvos.charAt(j + 1) != '!');
+                //feito tudo adiciona ao corpo e joga no array cobra
+                corpo[0] = Integer.parseInt(aux1);
+                corpo[1] = Integer.parseInt(aux2);
+                cobra.add(corpo);
+            }
+        }
+
+        // aux = Integer.parseInt(String.valueOf(digits.charAt(i)));//converter para string
     }
 
     public void NovaFruta() {
@@ -275,4 +359,6 @@ public class Agrade extends AppCompatActivity {
         }
         tabuleiro[fruta[0]][fruta[1]].setImageResource(R.color.Red);
     }
+
+
 }
